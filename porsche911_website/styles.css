@@ -27,18 +27,79 @@ body {
   flex-direction: column;
 }
 
+.header__nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  width: 30px;
+  height: 25px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 20;
+}
+
+.menu-toggle__bar {
+  width: 30px;
+  height: 4px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  .header__nav {
+    display: none; 
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 200px;
+    border-radius: 8px;
+    padding: 10px;
+  }
+
+  .header__nav a {
+    margin-bottom: 1rem;
+    color: #fff;
+    text-align: center;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .header__nav.open {
+    display: flex;
+  }
+}
+
+.home {
+  position: relative; 
+  height: 100vh; 
+}
+
 .header {
   position: sticky;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 10;
   width: 100%;
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.3); 
   backdrop-filter: blur(6px);
+  transition: top 0.3s;
 }
+
 
 .header__brand {
   display: flex;
@@ -372,11 +433,11 @@ footer {
 }
 
 .alt-icon {
-  transform: skew(-20deg);
+  transform: skew(20deg);
   background: #f9a03f;
   width: 100px;
   height: 100px;
-  margin-left: 90px;
+  margin-left: 70px;
   margin-top: -80px;
   display: flex;
   align-items: center;
@@ -385,6 +446,7 @@ footer {
 
 
 .alt-icon span {
+  transform: skew(0deg);
   font-size: 28px;
   line-height: 1;
 }
