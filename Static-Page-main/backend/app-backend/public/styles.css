@@ -575,3 +575,208 @@ footer {
 .footer-icons img:hover {
   transform: scale(1.1);
 }
+/* =======================================================
+   Sekcja Reviews (Opinie Klientów)
+   ======================================================= */
+
+.reviews-section {
+  position: relative;
+  padding: 4rem 2rem;
+  background-color: #eef5fa;
+  text-align: center;
+}
+
+.reviews-section .section-title {
+  font-family: 'Inria Serif', serif;
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto 2rem auto;
+}
+
+.review-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.review-author {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: #222;
+}
+
+.review-stars .star {
+  font-size: 1.25rem;
+  color: #ccc;
+  margin-left: 2px;
+}
+
+.review-stars .star.filled {
+  color: #f7c311; /* złoty kolor gwiazdki */
+}
+
+.review-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.5;
+  margin-top: 0.5rem;
+}
+
+/* =======================================================
+   Formularz dodawania opinii
+   ======================================================= */
+
+.review-form-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.review-form-title {
+  font-family: 'Inria Serif', serif;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #333;
+  text-align: center;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.review-form .form-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #333;
+}
+
+.review-form input[type="text"],
+.review-form textarea {
+  padding: 0.75rem;
+  border: 1px solid #999;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+}
+
+.review-form textarea {
+  resize: vertical;
+}
+
+/* Gwiazdki do wyboru oceny */
+.star-inputs {
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.star-inputs input[type="radio"] {
+  display: none; /* ukrywamy radio */
+}
+
+.star-inputs label.star-input {
+  font-size: 2rem;
+  cursor: pointer;
+  color: #ccc;
+  transition: color 0.2s ease;
+}
+
+
+.star-inputs label.star-input:hover,
+.star-inputs label.star-input:hover ~ label.star-input {
+  color: #f7c311; /* hover: złoty odcień */
+}
+
+/* Przycisk "Dodaj" */
+#addReviewBtn {
+  align-self: center;
+  margin-top: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-family: 'Inria Serif', serif;
+  font-size: 1rem;
+  background-color: #2c2c2c;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+#addReviewBtn:hover {
+  background-color: #1f1f1f;
+  transform: translateY(-2px);
+}
+
+/* Przycisk "Pokaż wszystkie opinie" */
+.reviews-button {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  font-family: 'Inria Serif', serif;
+  font-size: 1rem;
+  background-color: #2596c9;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.reviews-button:hover {
+  background-color: #1d7aa5;
+  transform: translateY(-2px);
+}
+/* Gdy nie ma żadnych recenzji */
+.no-reviews {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #555;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+/* Responsywność: na małych ekranach jedna kolumna kart i formularz węższy */
+@media (max-width: 768px) {
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .review-form-container {
+    margin: 1rem;
+    padding: 1rem;
+  }
+}

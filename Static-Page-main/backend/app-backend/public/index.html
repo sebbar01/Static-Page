@@ -72,6 +72,39 @@
       </div>
     </section>
   </section>
+<section id="reviews" class="reviews-section">
+
+  <div class="review-form-container">
+    <h3 class="review-form-title">Dodaj swoją opinię</h3>
+    <form id="addReviewForm" class="review-form">
+   
+      <label for="reviewerName" class="form-label">Twoje imię:</label>
+      <input type="text" id="reviewerName" name="reviewerName" placeholder="Wpisz swoje imię" required />
+
+      <label for="ratingSelect" class="form-label">Ocena:</label>
+      <select id="ratingSelect" name="rating" class="rating-select" required>
+        <option value="" disabled selected>Wybierz liczbę gwiazdek</option>
+        <option value="5">★★★★★ (5/5)</option>
+        <option value="4">★★★★☆ (4/5)</option>
+        <option value="3">★★★☆☆ (3/5)</option>
+        <option value="2">★★☆☆☆ (2/5)</option>
+        <option value="1">★☆☆☆☆ (1/5)</option>
+      </select>
+
+      <label for="reviewText" class="form-label">Twoja opinia:</label>
+      <textarea id="reviewText" name="reviewText" rows="4" placeholder="Napisz swoją opinię" required></textarea>
+
+      <button type="button" class="reviews-button" id="addReviewBtn">Dodaj</button>
+    </form>
+  </div>
+
+
+  <button id="showReviewsBtn" class="reviews-button">Pokaż wszystkie opinie</button>
+
+ 
+  <div class="reviews-grid"></div> 
+</section>
+
 
   <section id="contact">
     <section class="contact-section">

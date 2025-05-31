@@ -15,6 +15,7 @@ let db = new sqlite3.Database(
     console.log('Połączono z bazą SQLite.');
   }
 );
+
 function seedModelsIfEmpty() {
   db.get('SELECT COUNT(*) AS count FROM models', (err, row) => {
     if (err) {
@@ -73,24 +74,44 @@ db.run(
   }
 );
 
-db.run(`
-  CREATE TABLE IF NOT EXISTS models (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    model TEXT,
-    generation TEXT,
-    year INTEGER,
-    horsepower INTEGER,
-    price INTEGER
-  )
-`, (err) => {
-  if (err) {
-    console.error('Błąd tworzenia tabeli models:', err.message);
-  } else {
-    console.log('Tabela models gotowa.');
-    seedModelsIfEmpty(); 
-  }
-});
 
+db.run(
+  `
+  CREATE TABLE IF NOT EXISTS models (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    model       TEXT,
+    generation  TEXT,
+    year        INTEGER,
+    horsepower  INTEGER,
+    price       INTEGER
+  )
+  `,
+  (err) => {
+    if (err) {
+      console.error('Błąd tworzenia tabeli models:', err.message);
+    } else {
+      console.log('Tabela models gotowa.');
+      seedModelsIfEmpty();
+    }
+  }
+);
+db.run(
+  `
+  CREATE TABLE IF NOT EXISTS reviews (
+    id             INTEGER PRIMARY KEY AUTOINCREMENT,
+    reviewer_name  TEXT    NOT NULL,
+    rating         INTEGER NOT NULL CHECK(rating BETWEEN 1 AND 5),
+    review_text    TEXT    NOT NULL
+  )
+  `,
+  (err) => {
+    if (err) {
+      console.error('Błąd tworzenia tabeli reviews:', err.message);
+    } else {
+      console.log('Tabela reviews gotowa.');
+    }
+  }
+);
 
 router.post('/contact', (req, res) => {
   const { first_name, last_name, subject, message } = req.body;
@@ -148,5 +169,46 @@ router.get('/models', (req, res) => {
   });
 });
 
+router.post('/reviews', (req, res) => {
+  const { reviewerName, rating, reviewText } = req.body;
+
+  if (!reviewerName || !rating || !reviewText) {
+    res.status(400).json({ error: 'Wszystkie pola (imię, ocena, tekst) są wymagane.' });
+    return;
+  }
+
+  const parsedRating = parseInt(rating, 10);
+  if (isNaN(parsedRating) || parsedRating < 1 || parsedRating > 5) {
+    res.status(400).json({ error: 'Ocena musi być liczbą od 1 do 5.' });
+    return;
+  }
+
+  const sql = `
+    INSERT INTO reviews (reviewer_name, rating, review_text)
+    VALUES (?, ?, ?)
+  `;
+  db.run(sql, [reviewerName, parsedRating, reviewText], function (err) {
+    if (err) {
+      console.error('Błąd podczas zapisu opinii:', err.message);
+      res.status(500).json({ error: 'Błąd zapisu opinii do bazy.' });
+      return;
+    }
+
+    res.json({ message: 'Opinia została dodana.', id: this.lastID });
+  });
+});
+
+
+router.get('/reviews', (req, res) => {
+  const sql = 'SELECT * FROM reviews ORDER BY id DESC';
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      console.error('Błąd podczas pobierania opinii:', err.message);
+      res.status(500).json({ error: 'Błąd podczas pobierania opinii.' });
+      return;
+    }
+    res.json(rows);
+  });
+});
 
 module.exports = router;
