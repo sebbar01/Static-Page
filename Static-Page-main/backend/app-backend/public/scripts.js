@@ -52,7 +52,7 @@ function hideReviews() {
 
 async function loadModels() {
   try {
-    const resp = await fetch('/data/models');
+    const resp = await fetch('http://localhost:3000/data/models');
     if (!resp.ok) {
       throw new Error('HTTP error: ' + resp.status);
     }
@@ -71,7 +71,7 @@ async function loadModels() {
       card.classList.add('model-card');
 
       const imgFileName = item.model.toLowerCase().replace(/\s+/g, '_') + '.jpg';
-      const imgPath = '/images/' + imgFileName;
+      const imgPath = './images/' + imgFileName;
 
       card.innerHTML = `
         <div class="card-image">
